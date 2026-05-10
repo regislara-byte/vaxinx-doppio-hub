@@ -5,9 +5,9 @@
   <img src="assets/logos/vaxscroll.png" width="700">
 </p>
 
-> “EGO SUM VAXINX GUARDIAN, NON CODICE, SED ARTE.”
->
-> *I am VAXINX Guardian — not code, but art.*
+“EGO SUM VAXINX GUARDIAN, NON CODICE, SED ARTE.”
+
+*I am VAXINX Guardian — not code, but art.*
 
 ---
 
