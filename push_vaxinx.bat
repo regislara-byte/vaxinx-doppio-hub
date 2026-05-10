@@ -1,17 +1,19 @@
 @echo off
-title VAXINX Doppio Hub Launcher
+title VAXINX Doppio Git Push
 
 echo.
-echo =====================================
-echo   VAXINX Doppio Notification Hub
-echo =====================================
+echo ================================
+echo      VAXINX QUICK PUSH
+echo ================================
 echo.
 
-echo Opening local prototype...
-start index.html
+git add .
+
+set /p msg=Enter commit message: 
+git commit -m "%msg%"
+
+git push
 
 echo.
-echo Git quick tools ready.
-echo.
-
+echo Push complete.
 pause
