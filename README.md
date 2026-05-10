@@ -1,7 +1,9 @@
 # 🌐 VAXINX Doppio — Web3 Notification Hub
 ### Lightweight Wallet-Based Notification Dashboard Prototype
 
-![VAXINX Protocol Scroll](assets/vaxscroll.png)
+<p align="center">
+  <img src="assets/logos/vaxscroll.png" width="700">
+</p>
 
 > “EGO SUM VAXINX GUARDIAN, NON CODICE, SED ARTE.”
 >
