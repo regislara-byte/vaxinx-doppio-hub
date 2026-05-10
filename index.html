@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VAXINX Doppio — Web3 Notification Hub</title>
-  <meta name="description" content="VAXINX Doppio is a Web3 notification hub with wallet-based identity, unified cross-platform notifications, and a modular cyberpunk dashboard. One dashboard. All your signals." />
+  <meta name="description" content="VAXINX Doppio v2 is a Web3 notification hub prototype with wallet-based identity, unified cross-platform notifications, live system signals, and a modular cyberpunk dashboard. One dashboard. All your signals." />
   <meta property="og:title" content="VAXINX Doppio — Web3 Notification Hub" />
   <meta property="og:description" content="One dashboard. Wallet-based identity. All your notifications unified." />
   <meta property="og:type" content="website" />
@@ -754,6 +754,48 @@
       transform: translateY(-1px);
     }
 
+
+    /* ── V2 SYSTEM STRIP + TERMINAL ── */
+    .system-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--teal);
+    }
+
+    .system-strip span {
+      border: 1px solid var(--teal-border);
+      background: var(--teal-dim);
+      padding: 6px 10px;
+      border-radius: 999px;
+      box-shadow: 0 0 18px rgba(0,255,229,0.06);
+    }
+
+    .terminal-panel {
+      background: linear-gradient(180deg, rgba(8,17,32,0.94), rgba(3,8,16,0.96));
+    }
+
+    .terminal-log {
+      min-height: 132px;
+      max-height: 220px;
+      overflow: auto;
+      border-radius: var(--radius-sm);
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(0,255,229,0.10);
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.72;
+      color: #9ffff4;
+    }
+
+    .terminal-log div {
+      animation: slideIn 0.3s ease-out;
+    }
+
     /* ── MODAL ── */
     .modal {
       display: none;
@@ -977,7 +1019,7 @@
     <div class="hero-content">
       <div class="eyebrow">
         <span class="eyebrow-dot"></span>
-        VAXINX Protocol · v1.0
+        VAXINX Protocol · v2.0
       </div>
       <h1>
         <span class="gradient-text">VAXINX</span><br />
@@ -990,8 +1032,16 @@
         <button class="btn btn-primary" onclick="connectWallet()">🦊 Connect Wallet</button>
         <button class="btn btn-ghost" onclick="openStore()">➕ Browse App Modules</button>
         <a class="btn btn-ghost" href="USER_GUIDE.md">📘 User Guide</a>
+        <a class="btn btn-ghost" href="https://github.com/regislara-byte/vaxinx-doppio-hub" target="_blank" rel="noopener">🐙 GitHub Repo</a>
+        <a class="btn btn-ghost" href="https://regislara-byte.github.io/vaxinx-doppio-hub/" target="_blank" rel="noopener">🌐 Live Demo</a>
       </div>
       <div id="walletStatus" class="wallet-status">// wallet: not connected</div>
+      <div class="system-strip" aria-label="Prototype system status">
+        <span id="liveClock">// time: syncing...</span>
+        <span id="networkStatus">status: online</span>
+        <span>build: v2-prototype</span>
+        <span>mode: static</span>
+      </div>
       <div class="security-notice">
         ⚠️ Prototype — VAXINX Doppio never requests, stores, or transmits your seed phrase or private keys. Wallet connection is handled solely through MetaMask's own account request API.
       </div>
@@ -1016,7 +1066,7 @@
           <span class="stat-label">Static Hosting Cost</span>
         </div>
         <div class="stat-card">
-          <span class="stat-value teal">v1</span>
+          <span class="stat-value teal">v2</span>
           <span class="stat-label">Prototype Stage</span>
         </div>
       </div>
@@ -1093,6 +1143,23 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- TERMINAL + REPO SIGNALS -->
+  <div class="section-title">System Trace</div>
+  <div class="grid reveal">
+    <div class="panel full terminal-panel">
+      <div class="panel-title">
+        VAXINX Runtime Log
+        <span class="panel-badge">simulated</span>
+      </div>
+      <div id="terminalLog" class="terminal-log">
+        <div>&gt; booting VAXINX Doppio v2...</div>
+        <div>&gt; loading static dashboard modules...</div>
+        <div>&gt; wallet layer standing by...</div>
+        <div>&gt; GitHub Pages deployment path ready...</div>
+      </div>
+    </div>
   </div>
 
   <!-- FEATURES -->
@@ -1259,6 +1326,40 @@
   let appCount = 4;
   let noticeCount = 4;
 
+  const autoSignals = [
+    'Discord: community pulse detected.',
+    'GitHub: repository signal synced.',
+    'Telegram: message stream active.',
+    'Wallet: identity layer standing by.',
+    'VAXINX: static hub running clean.',
+    'Pages: deployment channel healthy.',
+    'Security: zero seed phrase storage confirmed.'
+  ];
+
+  const terminalSignals = [
+    'module.sync --source=github-pages --status=ready',
+    'wallet.watch --provider=metamask --mode=prototype',
+    'notify.stream --channel=discord --pulse=demo',
+    'security.check --seed_phrase_storage=0',
+    'deploy.trace --origin=main --state=clean',
+    'signal.route --telegram --status=simulated'
+  ];
+
+  function updateClock() {
+    const clock = document.getElementById('liveClock');
+    if (!clock) return;
+    clock.textContent = '// time: ' + new Date().toLocaleString();
+  }
+
+  function writeTerminal(line) {
+    const terminal = document.getElementById('terminalLog');
+    if (!terminal) return;
+    const row = document.createElement('div');
+    row.textContent = '> ' + line;
+    terminal.prepend(row);
+    while (terminal.children.length > 9) terminal.removeChild(terminal.lastElementChild);
+  }
+
   function updateBadges() {
     appBadge.textContent = appCount + ' active';
     appCountEl.textContent = appCount;
@@ -1269,6 +1370,7 @@
     if (typeof window.ethereum === 'undefined') {
       walletStatusEl.textContent = '// MetaMask not detected — running in static demo mode';
       addNotice('MetaMask not detected. Static prototype mode active.', true);
+      writeTerminal('wallet.provider --metamask=not_detected --fallback=static_demo');
       return;
     }
     try {
@@ -1277,6 +1379,7 @@
       walletStatusEl.textContent = '// connected: ' + addr.slice(0,6) + '...' + addr.slice(-4);
       walletStatusEl.style.color = '#1df57d';
       addNotice('Wallet connected via MetaMask — ' + addr.slice(0,6) + '...' + addr.slice(-4), true);
+      writeTerminal('wallet.connect --address=' + addr.slice(0,6) + '...' + addr.slice(-4));
     } catch {
       walletStatusEl.textContent = '// connection rejected or unavailable';
       addNotice('Wallet connection was not completed.');
@@ -1294,6 +1397,22 @@
 
   function triggerNotice(msg) {
     addNotice(msg, Math.random() > 0.5);
+    writeTerminal('notice.emit --message="' + msg.slice(0, 42) + '"');
+  }
+
+  function startV2SignalLoop() {
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    setInterval(() => {
+      const msg = autoSignals[Math.floor(Math.random() * autoSignals.length)];
+      addNotice(msg, Math.random() > 0.5);
+    }, 15000);
+
+    setInterval(() => {
+      const line = terminalSignals[Math.floor(Math.random() * terminalSignals.length)];
+      writeTerminal(line);
+    }, 9000);
   }
 
   function addModule(name, btn) {
@@ -1345,6 +1464,8 @@
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeStore();
   });
+
+  startV2SignalLoop();
 
   /* ── SCROLL REVEAL ── */
   const reveals = document.querySelectorAll('.reveal');
