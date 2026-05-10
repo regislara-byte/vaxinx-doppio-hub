@@ -133,7 +133,7 @@ GitHub: `regislara-byte`
 
 # 🧬 Security Philosophy
 
-```text
+```
 Lightweight systems.
 Clear documentation.
 Transparent experimentation.
