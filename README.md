@@ -26,7 +26,7 @@ This project is a front-end concept demo for:
 
 ## ⚡ Core Philosophy
 
-```
+```text
 One Dashboard
 +
 Wallet-Based Identity
